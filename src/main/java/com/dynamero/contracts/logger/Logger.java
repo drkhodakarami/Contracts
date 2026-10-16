@@ -75,6 +75,26 @@ public class Logger
         this.logger.info("\u001B[38;2;" + 255 + ";" + 255 + ";" + 0 + ";48;2;" + 255 + ";" + 0 + ";" + 127 + "m>>> Initializing {}", RESET);
     }
 
+    public void logCommon()
+    {
+        this.logger.info("\u001B[38;2;" + 255 + ";" + 255 + ";" + 0 + ";48;2;" + 255 + ";" + 0 + ";" + 127 + "m>>> Initializing - Common {}", RESET);
+    }
+
+    public void logFabric()
+    {
+        this.logger.info("\u001B[38;2;" + 255 + ";" + 255 + ";" + 0 + ";48;2;" + 255 + ";" + 0 + ";" + 127 + "m>>> Initializing - Fabric {}", RESET);
+    }
+
+    public void logNeoForge()
+    {
+        this.logger.info("\u001B[38;2;" + 255 + ";" + 255 + ";" + 0 + ";48;2;" + 255 + ";" + 0 + ";" + 127 + "m>>> Initializing - NeoForge {}", RESET);
+    }
+
+    public void logLoader(String name)
+    {
+        this.logger.info("\u001B[38;2;" + 255 + ";" + 255 + ";" + 0 + ";48;2;" + 255 + ";" + 0 + ";" + 127 + "m>>> Initializing - {} {}", name, RESET);
+    }
+
     /**
      * Logs a message related to item registration.
      */
@@ -551,6 +571,42 @@ public class Logger
     {
         if (this.debug)
             log(message, 0, 0, 255);
+    }
+
+    public void logY(String message)
+    {
+        if (this.debug)
+            log(message, 255, 255, 0);
+    }
+
+    public void logPi(String message)
+    {
+        if (this.debug)
+            log(message, 255, 192, 203);
+    }
+
+    public void logPr(String message)
+    {
+        if (this.debug)
+            log(message, 128, 0, 128);
+    }
+
+    public void logC(String message)
+    {
+        if (this.debug)
+            log(message, 0, 255, 255);
+    }
+
+    public void logBr(String message)
+    {
+        if (this.debug)
+            log(message, 165, 42, 42);
+    }
+
+    public void logO(String message)
+    {
+        if (this.debug)
+            log(message, 255, 92, 0);
     }
 
     /**
