@@ -576,19 +576,19 @@ public class Logger
     public void logY(String message)
     {
         if (this.debug)
-            log(message, 255, 255, 0);
+            log(message, 231, 255, 0);
     }
 
     public void logPi(String message)
     {
         if (this.debug)
-            log(message, 255, 192, 203);
+            log(message, 255, 69, 217);
     }
 
     public void logPr(String message)
     {
         if (this.debug)
-            log(message, 128, 0, 128);
+            log(message, 151, 69, 217);
     }
 
     public void logC(String message)
@@ -600,13 +600,13 @@ public class Logger
     public void logBr(String message)
     {
         if (this.debug)
-            log(message, 165, 42, 42);
+            log(message, 184, 102, 0);
     }
 
     public void logO(String message)
     {
         if (this.debug)
-            log(message, 255, 92, 0);
+            log(message, 255, 124, 0);
     }
 
     /**

@@ -16,7 +16,7 @@
 
 package com.dynamero.contracts.exceptions;
 
-import com.dynamero.shared.annotations.*;
+import com.dynamero.contracts.annotations.*;
 
 /**
  * Contains custom exceptions for the Jibase project.

@@ -16,7 +16,7 @@
 
 package com.dynamero.contracts.exceptions;
 
-import com.dynamero.shared.annotations.*;
+import com.dynamero.contracts.annotations.*;
 
 /**
  * This exception class is used to prevent instantiation of the {@link ArgumentException} class.
