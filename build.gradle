@@ -1,9 +1,11 @@
-import groovy.json.JsonSlurper
-
 plugins {
     id 'java-library'
     id 'maven-publish'
     id 'com.dynamero.props' version '1.0.0'
+}
+
+repositories {
+    mavenCentral() // Required to download slf4j-api
 }
 
 group = 'com.dynamero.contracts'
@@ -15,6 +17,11 @@ java {
     }
     withSourcesJar()
     withJavadocJar()
+}
+
+dependencies {
+    // Standard logging API for libraries
+    api 'org.slf4j:slf4j-api:2.0.16'
 }
 
 def local = props.load('local')
@@ -30,43 +37,35 @@ publishing {
         mavenJava(MavenPublication) {
             artifactId = project.name
 
-            // Publishes jar, runtime dependencies, sourcesJar, and javadocJar automatically
             from components.java
 
             pom {
-                addPomMetadataInformation(rootProject, pom)
+                name = "Contracts"
+                description = "Contracts library containing annotations and exceptions."
+                url = "https://github.com/drkhodakarami/Contracts/tree/HEAD/${project.rootDir.relativePath(project.projectDir)}"
+                licenses {
+                    license {
+                        name = "LGPL-3.0"
+                        url = "https://www.gnu.org/licenses/lgpl-3.0.html"
+                    }
+                }
+                developers {
+                    developer {
+                        name = "TheMentor"
+                        url = "https://www.dynamero.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/drkhodakarami/Contracts.git"
+                    url = "https://github.com/drkhodakarami/Contracts"
+                    developerConnection = "scm:git:git@github.com:drkhodakarami/Contracts.git"
+                }
+                issueManagement {
+                    system = "GitHub"
+                    url = "https://github.com/drkhodakarami/Contracts/issues"
+                }
             }
         }
-    }
-}
-
-def addPomMetadataInformation(Project project, MavenPom pom) {
-    def modJsonFile = project.file("src/main/resources/fabric.mod.json")
-
-    def modJson = new JsonSlurper().parse(modJsonFile)
-    pom.name = modJson.name
-    pom.url = "https://github.com/drkhodakarami/Contracts/tree/HEAD/${project.rootDir.relativePath(project.projectDir)}"
-    pom.description = modJson.description
-    pom.licenses {
-        license {
-            name = "LGPL-3.0"
-            url = "https://www.gnu.org/licenses/lgpl-3.0.html"
-        }
-    }
-    pom.developers {
-        developer {
-            name = "TheMentor"
-            url = "https://www.dynamero.com"
-        }
-    }
-    pom.scm {
-        connection = "scm:git:https://github.com/drkhodakarami/Contracts.git"
-        url = "https://github.com/drkhodakarami/Contracts"
-        developerConnection = "scm:git:git@github.com:drkhodakarami/Contracts.git"
-    }
-    pom.issueManagement {
-        system = "GitHub"
-        url = "https://github.com/drkhodakarami/Contracts/issues"
     }
 }
 
