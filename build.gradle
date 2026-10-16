@@ -1,0 +1,84 @@
+import groovy.json.JsonSlurper
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'com.dynamero.props' version '1.0.0'
+}
+
+group = 'com.dynamero.contracts'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    withSourcesJar()
+    withJavadocJar()
+}
+
+def local = props.load('local')
+
+def repsyUrl = local.REPSY_URL
+def repsyUsername = local.REPSY_USERNAME
+def repsyPassword = local.REPSY_PASSWORD
+
+publishing {
+    setupRepositories(repositories, repsyUrl, repsyUsername, repsyPassword)
+
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = project.name
+
+            // Publishes jar, runtime dependencies, sourcesJar, and javadocJar automatically
+            from components.java
+
+            pom {
+                addPomMetadataInformation(rootProject, pom)
+            }
+        }
+    }
+}
+
+def addPomMetadataInformation(Project project, MavenPom pom) {
+    def modJsonFile = project.file("src/main/resources/fabric.mod.json")
+
+    def modJson = new JsonSlurper().parse(modJsonFile)
+    pom.name = modJson.name
+    pom.url = "https://github.com/drkhodakarami/Contracts/tree/HEAD/${project.rootDir.relativePath(project.projectDir)}"
+    pom.description = modJson.description
+    pom.licenses {
+        license {
+            name = "LGPL-3.0"
+            url = "https://www.gnu.org/licenses/lgpl-3.0.html"
+        }
+    }
+    pom.developers {
+        developer {
+            name = "TheMentor"
+            url = "https://www.dynamero.com"
+        }
+    }
+    pom.scm {
+        connection = "scm:git:https://github.com/drkhodakarami/Contracts.git"
+        url = "https://github.com/drkhodakarami/Contracts"
+        developerConnection = "scm:git:git@github.com:drkhodakarami/Contracts.git"
+    }
+    pom.issueManagement {
+        system = "GitHub"
+        url = "https://github.com/drkhodakarami/Contracts/issues"
+    }
+}
+
+void setupRepositories(RepositoryHandler repositories, String repsyUrl, String repsyUsername, String repsyPassword) {
+    repositories.mavenLocal()
+    if (repsyUrl) {
+        repositories.maven {
+            url = repsyUrl
+            credentials {
+                username = repsyUsername
+                password = repsyPassword
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url = 'https://repo.repsy.io/mvn/thementor/props' }
+    }
+}
+
+// Should match your modid
+rootProject.name = 'contracts'
